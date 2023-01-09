@@ -7,7 +7,7 @@ import { ALL_PRODUCTS_QUERY } from "./Products";
 import Form from "./styles/Form";
 
 const CREATE_PRODUCT_MUTATION = gql`
-  mutation CREATE_PRODUCT_MUTATION(
+  mutation CREATE_PRODUCT_MUTATION( 
     $name: String!
     $description: String!
     $price: Int!
@@ -33,9 +33,9 @@ const CREATE_PRODUCT_MUTATION = gql`
 export default function CreateProduct() {
   const { inputs, handleChange, clearForm, resetForm } = useForm({
     image: "",
-    name: "Nice Shoes",
-    price: 23432,
-    description: "heyoo",
+    name: "",
+    price: 0,
+    description: "",
   });
   const [createProduct, { loading, error, data }] = useMutation(
     CREATE_PRODUCT_MUTATION,
@@ -44,6 +44,7 @@ export default function CreateProduct() {
       refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
     }
   );
+  const router = useRouter();
 
   return (
     <Form
@@ -53,7 +54,6 @@ export default function CreateProduct() {
         const { data } = await createProduct();
         clearForm();
         // Go to that products page
-        const router = useRouter();
         router.push({
           pathname: `/product/${data.createProduct.id}`,
         });
@@ -83,12 +83,12 @@ export default function CreateProduct() {
           />
         </label>
         <label htmlFor="price">
-          Price
+          Price (cents)
           <input
             type="number"
             id="price"
             name="price"
-            placeholder="Please enter your price"
+            placeholder="Please enter your price in cents"
             value={inputs.price}
             onChange={handleChange}
           />

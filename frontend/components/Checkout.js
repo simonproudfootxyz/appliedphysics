@@ -53,9 +53,9 @@ function CheckoutForm() {
       refetchQueries: [{ queryy: CURRENT_USER_QUERY }],
     }
   );
+  const router = useRouter();
 
   async function handleSubmit(e) {
-    const router = useRouter();
     // 1. Stop the form from submitting, turn loader on
     e.preventDefault();
     setLoading(true);

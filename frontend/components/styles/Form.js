@@ -56,7 +56,7 @@ const Form = styled.form`
     &::before {
       height: 10px;
       content: '';
-      display: block;
+      ${'' /* display: block; */}
       background: var(--black);
       
       ${'' /* background-image: linear-gradient(
