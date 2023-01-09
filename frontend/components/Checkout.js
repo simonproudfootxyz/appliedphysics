@@ -50,7 +50,7 @@ function CheckoutForm() {
   const [checkout, { error: graphQLError }] = useMutation(
     CREATE_ORDER_MUTATION,
     {
-      refetchQueries: [{ queryy: CURRENT_USER_QUERY }],
+      refetchQueries: [{ query: CURRENT_USER_QUERY }],
     }
   );
   const router = useRouter();
