@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import { useCart } from "../lib/cartState";
-import { CURRENT_USER_QUERY } from "./User";
+import { CURRENT_USER_QUERY, useUser } from "./User";
 
 const ADD_TO_CART_MUTATION = gql`
   mutation ADD_TO_CART_MUTATION($id: ID!) {
@@ -12,17 +12,18 @@ const ADD_TO_CART_MUTATION = gql`
 `;
 
 export default function AddToCart({ id }) {
-    const { openCart } = useCart()
+  const { openCart } = useCart();
+  const me = useUser();
   const [addToCart, { loading }] = useMutation(ADD_TO_CART_MUTATION, {
     variables: {
       id: id,
     },
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
-    onCompleted: () => openCart()
+    onCompleted: () => openCart(),
   });
   return (
-    <button type="button" disabled={loading} onClick={addToCart}>
-      Add{loading && 'ing'} To Cart
+    <button type="button" disabled={loading || !me} onClick={addToCart}>
+      Add{loading && "ing"} To Cart
     </button>
   );
 }
