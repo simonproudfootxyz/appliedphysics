@@ -3,7 +3,6 @@ import { list } from "@keystone-next/keystone/schema";
 import { isSignedIn, rules } from "../access";
 
 export const Product = list({
-  // TODO:
   access: {
     create: isSignedIn,
     // read: isSignedIn,

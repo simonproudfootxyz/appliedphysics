@@ -52,7 +52,6 @@ export default withAuth(
     db: {
       adapter: "mongoose",
       url: databaseURL,
-      //   TODO: add data seeding here
       async onConnect(keystone) {
         console.log("Connected to the database");
         if (process.argv.includes("--seed-data")) {
@@ -72,7 +71,6 @@ export default withAuth(
     }),
     extendGraphqlSchema: extendGraphqlSchema,
     ui: {
-      //TODO: change this for roles
       //   Show the UI only for people who pass this test
       isAccessAllowed: ({ session }) => {
         // console.log(session);
